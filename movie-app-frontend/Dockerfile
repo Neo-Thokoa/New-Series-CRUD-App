@@ -1,0 +1,22 @@
+# Stage 1
+FROM node:14 as build-stage
+
+WORKDIR /movie-app-frontend
+COPY package.json .
+RUN npm install
+COPY . .
+
+ARG REACT_APP_API_BASE_URL
+ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
+
+# ENV CI=true
+# RUN npm run test
+RUN npm run build
+
+# Stage 2
+FROM nginx:1.17.0-alpine
+
+COPY --from=build-stage /movie-app-frontend/build /usr/share/nginx/html
+EXPOSE $REACT_DOCKER_PORT
+
+CMD nginx -g 'daemon off;'

@@ -19,6 +19,10 @@ Thus to setup System:
 
 Ensure you install MongoCompass to view DB under port:
 
+![image info](./Images/movie-mongo.png)
+
+After Run, Application should look as follows:
+
 ![image info](./Images/movies-snapshot.png)
 ***
 

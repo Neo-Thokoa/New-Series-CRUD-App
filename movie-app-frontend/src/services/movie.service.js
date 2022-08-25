@@ -1,8 +1,20 @@
 import http from "../http-common";
 
 class MovieDataService {
-  getAll() {
-    return http.get("/movies");
+  constructor() {
+    this.cache = new Map();
+  }
+
+  async getAll() {
+
+    if (this.cache.has(`allMovies`)) {
+      return this.cache.get(`allMovies`);
+    }
+
+    const response = await http.get("/movies");
+    this.cache.set(`allMovies`, response);
+    return response;
+    // return http.get("/movies");
   }
 
   get(id) {

@@ -1,0 +1,16 @@
+beforeCreate:
+  - docker-compose up -d
+
+afterTerminate:
+  - docker-compose down
+
+
+sync:
+  code:
+    alpha: "."
+    beta: "docker://series-crud-app_frontend_1/usr/share/nginx/html"
+    mode: "two-way-safe"
+    configurationBeta:
+      permissions:
+        defaultFileMode: "0666"
+        defaultDirectoryMode: "0777"
